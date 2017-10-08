@@ -35,7 +35,6 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_include_returns_true_or_false
-    skip
     assert_equal true, tree.include?(16)
     assert_equal false, tree.include?(72)
   end

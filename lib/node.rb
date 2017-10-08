@@ -41,4 +41,17 @@ class Node
     end
   end
 
+  def find_score(score_check)
+    return self if score_check == @score
+    if score_check < @score
+      path = @left
+    else
+      path = @right
+    end
+    if path.nil?
+      return nil
+    else
+      path.find_score(score_check)
+    end
+  end
 end
