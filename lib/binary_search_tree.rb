@@ -33,6 +33,13 @@ class BinarySearchTree
       true
     end
   end
+
+  def depth_of(score)
+    return nil if @root == nil
+    return @depth if @root.score == score
+    node = @root.find_score(score)
+    node.depth
+  end
 end
 
 # tree = BinarySearchTree.new

@@ -26,12 +26,16 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_insert_method_returns_correct_tree_depth
-    tree.insert(61, "Bill & Ted's Excellent Adventure")
-    tree.insert(16, "Johnny English")
-    tree.insert(92, "Sharknado 3")
-    tree.insert(50, "Hannibal Buress: Animal Furnace")
+    tree_1 = tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree_2 = tree.insert(16, "Johnny English")
+    tree_3 = tree.insert(92, "Sharknado 3")
+    tree_4 = tree.insert(50, "Hannibal Buress: Animal Furnace")
 
-    assert_equal 2, tree.root.depth
+    assert_equal 0, tree.depth
+    assert_equal 0, tree_1
+    assert_equal 1, tree_2
+    assert_equal 1, tree_3
+    assert_equal 2, tree_4
   end
 
   def test_include_returns_true_or_false
@@ -43,7 +47,7 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_depth_of_tree_nodes
-    skip
+    assert_equal 0, tree.depth_of(61)
     assert_equal 1, tree.depth_of(92)
     assert_equal 2, tree.depth_of(50)
   end
