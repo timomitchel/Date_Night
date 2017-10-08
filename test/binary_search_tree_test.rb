@@ -35,8 +35,11 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_include_returns_true_or_false
-    assert_equal true, tree.include?(16)
-    assert_equal false, tree.include?(72)
+    assert tree.include?(16)
+    refute tree.include?(72)
+    assert tree.include?(61)
+    refute tree.include?(424800852)
+    refute tree.include?("timo")
   end
 
   def test_depth_of_tree_nodes
