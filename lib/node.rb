@@ -57,4 +57,8 @@ class Node
       @right
     end
   end
+
+  def hash_maker
+    {self.title => self.score}
+  end
 end

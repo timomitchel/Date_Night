@@ -1,16 +1,18 @@
-require "./lib/node"
-
+require_relative "node"
+require "pry"
 class BinarySearchTree
 
   attr_reader :root, :depth
-
+  attr_accessor :all_entries
   def initialize
     @root = nil
     @depth = 0
+    @all_entries = []
   end
 
   def insert(score, title)
     node = Node.new(score, title)
+    @all_entries << node.hash_maker
     @root = node if root.nil?
     if @root == node
       return @depth
@@ -40,12 +42,33 @@ class BinarySearchTree
     node = @root.find_score(score)
     node.depth
   end
+
+  def value_finder
+    entries = @all_entries
+    s = entries.map do |entry|
+     entry.values
+    end
+    s
+  end
+
+  def min
+    min_value = value_finder.min
+    @all_entries.find do |hash|
+      hash.values == min_value
+    end
+  end
+
+  def max
+    max_value = value_finder.max
+    @all_entries.find do |hash|
+      hash.values == max_value
+    end
+  end
 end
 
-# tree = BinarySearchTree.new
-# tree.insert(61, "Bill & Ted's Excellent Adventure")
-# tree.insert(16, "Johnny English")
-# tree.insert(92, "Sharknado 3")
-# tree.insert(50, "Hannibal Buress: Animal Furnace")
-#
-# puts tree.root.left.right.score
+tree = BinarySearchTree.new
+tree.insert(61, "Bill & Ted's Excellent Adventure")
+tree.insert(16, "Johnny English")
+tree.insert(92, "Sharknado 3")
+tree.insert(50, "Hannibal Buress: Animal Furnace")
+tree.min

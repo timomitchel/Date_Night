@@ -53,13 +53,11 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_max_returns_node_with_highest_score_as_hash
-    skip
-    assert_equal "hash Sharknado 3", tree.max
+    assert_equal ({"Sharknado 3" => 92}), tree.max
   end
 
   def test_min_returns_node_with_lowest_score_as_hash
-    skip
-    assert_equal "hash Johnny English", tree.min
+    assert_equal ({"Johnny English" => 16}), tree.min
   end
 
   def test_sort_returns_array_of_movies_in_ascending_order
