@@ -11,23 +11,31 @@ class Node
     @depth = 0
   end
 
+  def left_node_set(node_score, node_title)
+    if left.nil?
+      @left = Node.new(node_score, node_title)
+      @depth += 1
+      return @depth
+    else
+      return @left.insert(node_score, node_title)
+    end
+  end
+
+  def right_node_set(node_score, node_title)
+    if @right.nil?
+      @right = Node.new(node_score, node_title)
+      @depth += 1
+      return @depth
+    else
+      return @right.insert(node_score, node_title)
+    end
+  end
+
   def insert(node_score, node_title)
     if node_score < @score
-      if left.nil?
-        @left = Node.new(node_score, node_title)
-        @depth += 1
-        return @depth
-      else
-        return @left.insert(node_score, node_title)
-      end
+      left_node_set(node_score, node_title)
     elsif node_score > @score
-      if @right.nil?
-        @right = Node.new(node_score, node_title)
-        @depth += 1
-        return @depth
-      else
-        return @right.insert(node_score, node_title)
-      end
+      right_node_set(node_score, node_title)
     else
       return nil
     end

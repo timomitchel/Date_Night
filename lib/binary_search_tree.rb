@@ -18,6 +18,4 @@ class BinarySearchTree
     @root.insert(score, title)
     end
   end
-
-
 end
