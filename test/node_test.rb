@@ -49,4 +49,16 @@ class NodeTest < Minitest::Test
     assert_equal 1, node_1.insert(73, 'Big Daddy')
     assert_equal 2, node_1.insert(45, 'Rainman')
   end
+
+  def test_find_score_returns_node_by_score_or_nil_if_it_does_not_exist
+    expected_1 = Node.new(50, 'Gold')
+    actual_1 = expected_1.find_score(50)
+    expected_2 = Node.new(68, 'It')
+    actual_2 = expected_2.find_score(68)
+
+    assert_nil nil, expected_1.find_score(49)
+    assert_equal expected_1, actual_1
+    assert_nil nil, expected_2.find_score(23)
+    assert_equal expected_2, actual_2
+  end
 end
