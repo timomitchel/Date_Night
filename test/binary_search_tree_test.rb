@@ -1,6 +1,6 @@
 require "pry"
 require "minitest/autorun"
-require "minitest/emoji"
+require "minitest/pride"
 require "./lib/node"
 require "./lib/binary_search_tree"
 
@@ -61,13 +61,11 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_sort_returns_array_of_movies_in_ascending_order
-    skip
-    assert_equal [], tree.sort
+    assert_equal [{"Johnny English"=>16}, {"Hannibal Buress: Animal Furnace"=>50}, {"Bill & Ted's Excellent Adventure"=>61}, {"Sharknado 3"=>92}], tree.sort
   end
 
   def test_load_returns_the_numbers_inserted_into_the_tree_and_ignores_duplicates
-    skip
-    assert_equal 26, tree.load('movies.txt')
+    assert_equal 26, tree.load('./lib/movies.txt')
   end
 
   def test_health_returns_array_of_score_total_child_nodes_and_percent_of_this_node_and_its_child_over_total_nodes

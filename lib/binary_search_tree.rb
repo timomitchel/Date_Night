@@ -45,10 +45,10 @@ class BinarySearchTree
 
   def value_finder
     entries = @all_entries
-    s = entries.map do |entry|
+    scores = entries.map do |entry|
      entry.values
     end
-    s
+    scores
   end
 
   def min
@@ -64,11 +64,22 @@ class BinarySearchTree
       hash.values == max_value
     end
   end
-end
 
-tree = BinarySearchTree.new
-tree.insert(61, "Bill & Ted's Excellent Adventure")
-tree.insert(16, "Johnny English")
-tree.insert(92, "Sharknado 3")
-tree.insert(50, "Hannibal Buress: Animal Furnace")
-tree.min
+  def sort
+    @all_entries.sort_by! do |entry|
+      entry.values
+    end
+  end
+
+  def load(filepath)
+    File.open(filepath).readlines.map do |line|
+      score, title = line.strip!.split(", ")
+        all_entries << self.insert(score.to_i, title)
+      end
+      x = all_entries.select do |movie|
+        movie if movie.is_a?(Hash)
+      end
+      x
+      binding.pry
+  end
+end
