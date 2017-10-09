@@ -53,15 +53,15 @@ class BinarySearchTree
 
   def min
     min_value = value_finder.min
-    @all_entries.find do |hash|
-      hash.values == min_value
+    @all_entries.find do |entry|
+      entry.values == min_value
     end
   end
 
   def max
     max_value = value_finder.max
-    @all_entries.find do |hash|
-      hash.values == max_value
+    @all_entries.find do |entry|
+      entry.values == max_value
     end
   end
 
@@ -72,14 +72,21 @@ class BinarySearchTree
   end
 
   def load(filepath)
-    File.open(filepath).readlines.map do |line|
+    scored_movies = File.open(filepath).readlines
+    transform_file_to_inserted_nodes(scored_movies)
+  end
+
+  def transform_file_to_inserted_nodes(scored_movies)
+    scored_movies.map do |line|
       score, title = line.strip!.split(", ")
-        all_entries << self.insert(score.to_i, title)
+      all_entries << self.insert(score.to_i, title)
       end
-      x = all_entries.select do |movie|
-        movie if movie.is_a?(Hash)
-      end
-      x
-      binding.pry
+      delete_depths(all_entries)
+  end
+
+  def delete_depths(entries_with_depths)
+    entries_with_depths.select do |movie|
+      movie if movie.is_a?(Hash)
+    end
   end
 end
