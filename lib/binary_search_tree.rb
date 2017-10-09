@@ -4,6 +4,7 @@ class BinarySearchTree
 
   attr_reader :root, :depth
   attr_accessor :all_entries
+  
   def initialize
     @root = nil
     @depth = 0
@@ -71,6 +72,7 @@ class BinarySearchTree
     end
   end
 
+
   def load(filepath)
     scored_movies = File.open(filepath).readlines
     transform_file_to_inserted_nodes(scored_movies)
@@ -79,7 +81,7 @@ class BinarySearchTree
   def transform_file_to_inserted_nodes(scored_movies)
     scored_movies.map do |line|
       score, title = line.strip!.split(", ")
-      all_entries << self.insert(score.to_i, title)
+       self.insert(score.to_i, title)
       end
       delete_depths(all_entries)
   end
@@ -87,6 +89,6 @@ class BinarySearchTree
   def delete_depths(entries_with_depths)
     entries_with_depths.select do |movie|
       movie if movie.is_a?(Hash)
-    end
+    end.length
   end
 end

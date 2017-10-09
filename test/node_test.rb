@@ -61,4 +61,16 @@ class NodeTest < Minitest::Test
     assert_nil nil, expected_2.find_score(23)
     assert_equal expected_2, actual_2
   end
+
+  def test_path_correctly_goes_left_or_right
+    node_1 = Node.new(50, 'Gold')
+    node_1.insert(45, 'Air Bud')
+
+
+    assert_nil nil, node_1.path(90)
+    assert_equal node_1.left, node_1.path(49)
+
+    node_1.insert(55, 'Meet the Fockers')
+    assert_equal node_1.right, node_1.path(65)
+  end
 end

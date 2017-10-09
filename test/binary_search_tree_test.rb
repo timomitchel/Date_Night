@@ -10,10 +10,6 @@ class BinarySearchTreeTest < Minitest::Test
 
   def setup
     @tree = BinarySearchTree.new
-    tree.insert(61, "Bill & Ted's Excellent Adventure")
-    tree.insert(16, "Johnny English")
-    tree.insert(92, "Sharknado 3")
-    tree.insert(50, "Hannibal Buress: Animal Furnace")
   end
 
   def test_it_exists
@@ -21,24 +17,28 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_tree_root_starts_as_nil
-    tree = BinarySearchTree.new
     assert_nil tree.root
   end
 
   def test_insert_method_returns_correct_tree_depth
-    tree_1 = tree.insert(61, "Bill & Ted's Excellent Adventure")
-    tree_2 = tree.insert(16, "Johnny English")
-    tree_3 = tree.insert(92, "Sharknado 3")
-    tree_4 = tree.insert(50, "Hannibal Buress: Animal Furnace")
+    depth_1 = tree.insert(61, "Bill & Ted's Excellent Adventure")
+    depth_2 = tree.insert(16, "Johnny English")
+    depth_3 = tree.insert(92, "Sharknado 3")
+    depth_4 = tree.insert(50, "Hannibal Buress: Animal Furnace")
 
     assert_equal 0, tree.depth
-    assert_equal 0, tree_1
-    assert_equal 1, tree_2
-    assert_equal 1, tree_3
-    assert_equal 2, tree_4
+    assert_equal 0, depth_1
+    assert_equal 1, depth_2
+    assert_equal 1, depth_3
+    assert_equal 2, depth_4
   end
 
   def test_include_returns_true_or_false
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+
     assert tree.include?(16)
     refute tree.include?(72)
     assert tree.include?(61)
@@ -47,25 +47,46 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_depth_of_tree_nodes
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+
     assert_equal 0, tree.depth_of(61)
     assert_equal 1, tree.depth_of(92)
     assert_equal 2, tree.depth_of(50)
   end
 
   def test_max_returns_node_with_highest_score_as_hash
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+
     assert_equal ({"Sharknado 3" => 92}), tree.max
   end
 
   def test_min_returns_node_with_lowest_score_as_hash
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+
     assert_equal ({"Johnny English" => 16}), tree.min
   end
 
   def test_sort_returns_array_of_movies_in_ascending_order
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+
     assert_equal [{"Johnny English"=>16}, {"Hannibal Buress: Animal Furnace"=>50}, {"Bill & Ted's Excellent Adventure"=>61}, {"Sharknado 3"=>92}], tree.sort
   end
 
   def test_load_returns_the_numbers_inserted_into_the_tree_and_ignores_duplicates
-    assert_equal 26, tree.load('./lib/movies.txt')
+    new_tree = BinarySearchTree.new
+    assert_equal 99, new_tree.load('./lib/movies.txt')
   end
 
   def test_health_returns_array_of_score_total_child_nodes_and_percent_of_this_node_and_its_child_over_total_nodes
