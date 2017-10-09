@@ -23,7 +23,7 @@ class NodeTest < Minitest::Test
     assert_equal 0, node.depth
   end
 
-  def test_left_node_set_returns_depth
+  def test_left_node_set_returns_depth_and_depth_starts_at_0
     node_1 = Node.new(50, 'Gold')
 
 
@@ -32,12 +32,21 @@ class NodeTest < Minitest::Test
     assert_equal 3, node_1.left_node_set(12, 'Batman')
   end
 
-  def test_right_node_set_returns_depth
+  def test_right_node_set_returns_depth_and_depth_starts_at_0
     node_1 = Node.new(50, 'Gold')
 
-
+    assert_equal 0, node_1.depth
     assert_equal 1, node_1.right_node_set(58, 'Spiderman')
     assert_equal 2, node_1.right_node_set(60, 'Fargo')
     assert_equal 3, node_1.right_node_set(80, 'Batman')
+  end
+
+  def test_insert_returns_depth_and_depth_starts_at_0
+    node_1 = Node.new(50, 'Gold')
+
+    assert_equal 0, node_1.depth
+    assert_equal 1, node_1.insert(23, 'Superman')
+    assert_equal 1, node_1.insert(73, 'Big Daddy')
+    assert_equal 2, node_1.insert(45, 'Rainman')
   end
 end
