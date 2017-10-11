@@ -1,6 +1,6 @@
 class Node
 
-  attr_reader :score, :title
+  attr_reader :score, :title, :children
   attr_accessor :left, :right, :depth
 
   def initialize(score, title, depth = 0)
@@ -9,6 +9,7 @@ class Node
     @left = nil
     @right = nil
     @depth = depth
+    @children = 0
   end
 
   def left_node_set(node_score, node_title)
@@ -30,6 +31,7 @@ class Node
   end
 
   def insert(node_score, node_title)
+    @children += 1
     if node_score < @score
       left_node_set(node_score, node_title)
     elsif node_score > @score

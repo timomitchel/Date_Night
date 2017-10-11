@@ -4,7 +4,7 @@ class BinarySearchTree
 
   attr_reader :root, :depth
   attr_accessor :all_entries
-  
+
   def initialize
     @root = nil
     @depth = 0
@@ -44,6 +44,20 @@ class BinarySearchTree
     node.depth
   end
 
+  def health(depth_check)
+    x = []
+    if @root.depth == depth_check
+    x << @root.score
+    x << (@root.children + 1)
+    x << (((@root.children.to_f + 1.00) / 7.00) * 100).floor
+    [] << x
+  elsif @root.depth != depth_check
+    
+    else
+      []
+    end
+  end
+
   def value_finder
     entries = @all_entries
     scores = entries.map do |entry|
@@ -72,7 +86,6 @@ class BinarySearchTree
     end
   end
 
-
   def load(filepath)
     scored_movies = File.open(filepath).readlines
     transform_file_to_inserted_nodes(scored_movies)
@@ -91,4 +104,6 @@ class BinarySearchTree
       movie if movie.is_a?(Hash)
     end.length
   end
+
+
 end

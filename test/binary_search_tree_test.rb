@@ -90,8 +90,6 @@ class BinarySearchTreeTest < Minitest::Test
   end
 
   def test_health_returns_array_of_score_total_child_nodes_and_percent_of_this_node_and_its_child_over_total_nodes
-    skip
-    #ignore setup
     tree.insert(98, "Animals United")
     tree.insert(58, "Armageddon")
     tree.insert(36, "Bill & Ted's Bogus Journey")
