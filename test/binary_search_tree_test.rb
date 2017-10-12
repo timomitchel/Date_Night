@@ -89,6 +89,21 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 99, new_tree.load('./lib/movies.txt')
   end
 
+  def test_transform_file_returns_length_of_array
+    from_file_example = ["71, Hannibal Buress: Animal Furnace\n", "80, Hannibal Buress: Comedy Camisado\n",
+                          "17, Meet My Valentine\n", "55, Experimenter\n"]
+    assert_equal 4, tree.transform_file_to_inserted_nodes(from_file_example)
+  end
+
+  def test_delete_depths_only_returns_hash_elements_of_an_array_and_length
+    without_hashes = ["71, Hannibal Buress: Animal Furnace\n", "80, Hannibal Buress: Comedy Camisado\n",
+                          "17, Meet My Valentine\n", "55, Experimenter\n"]
+    with_hashes = [{3=>'timo'}, 45, 'hi', {'score'=> 'movies'}]
+
+    assert_equal 0, tree.grab_hashes(without_hashes)
+    assert_equal 2, tree.grab_hashes(with_hashes)
+  end
+
   def test_health_returns_array_of_score_total_child_nodes_and_percent_of_this_node_and_its_child_over_total_nodes
     tree.insert(98, "Animals United")
     tree.insert(58, "Armageddon")
@@ -101,6 +116,64 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal [[98, 7, 100]], tree.health(0)
     assert_equal [[58, 6, 85]], tree.health(1)
     assert_equal [[36, 2, 28], [93, 3, 42]], tree.health(2)
+  end
+
+  def test_percentage_returns_integer_with_correct_percentage
+    assert_equal 100, tree.percentage(7,7)
+    assert_equal 85, tree.percentage(6,7)
+    assert_equal 0, tree.percentage(0,7)
+  end
+
+  def test_sort_for_depth_edge_cases
+    tree.insert(98, "Animals United")
+    tree.insert(58, "Armageddon")
+    tree.insert(36, "Bill & Ted's Bogus Journey")
+    tree.insert(93, "Bill & Ted's Excellent Adventure")
+    tree.insert(86, "Charlie's Angels")
+    tree.insert(38, "Charlie's Country")
+    tree.insert(69, "Collateral Damage")
+
+    assert_nil nil, tree.sort_for_depth(nil)
+  end
+
+  def test_sort_for_depth_returns_array_of_nodes_as_hashes_sorted_by_score
+    tree.insert(98, "Animals United")
+    tree.insert(58, "Armageddon")
+    tree.insert(36, "Bill & Ted's Bogus Journey")
+    tree.insert(93, "Bill & Ted's Excellent Adventure")
+    tree.insert(86, "Charlie's Angels")
+    tree.insert(38, "Charlie's Country")
+    tree.insert(69, "Collateral Damage")
+
+    assert_equal 7, tree.sort_for_depth(tree.root).length
+    assert_equal [36], tree.sort_for_depth(tree.root).first.values
+    assert_equal [98], tree.sort_for_depth(tree.root).last.values
+  end
+
+  def test_depth_sort_returns_array_of_nodes
+    tree.insert(98, "Animals United")
+    tree.insert(58, "Armageddon")
+    tree.insert(36, "Bill & Ted's Bogus Journey")
+    tree.insert(93, "Bill & Ted's Excellent Adventure")
+    tree.insert(86, "Charlie's Angels")
+    tree.insert(38, "Charlie's Country")
+    tree.insert(69, "Collateral Damage")
+
+    assert_equal 69, tree.depth_sort(4).first.score
+    assert_equal "Charlie's Angels", tree.depth_sort(3).last.title
+  end
+
+  def test_depth_sort_edge_cases
+    tree.insert(98, "Animals United")
+    tree.insert(58, "Armageddon")
+    tree.insert(36, "Bill & Ted's Bogus Journey")
+    tree.insert(93, "Bill & Ted's Excellent Adventure")
+    tree.insert(86, "Charlie's Angels")
+    tree.insert(38, "Charlie's Country")
+    tree.insert(69, "Collateral Damage")
+
+    assert_nil nil, tree.depth_sort(nil)
+    assert_equal [], tree.depth_sort(100)
   end
 
 

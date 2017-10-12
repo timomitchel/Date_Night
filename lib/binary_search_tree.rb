@@ -44,19 +44,7 @@ class BinarySearchTree
     node.depth
   end
 
-  def health(depth_check)
-    x = []
-    if @root.depth == depth_check
-    x << @root.score
-    x << (@root.children + 1)
-    x << (((@root.children.to_f + 1.00) / 7.00) * 100).floor
-    [] << x
-  elsif @root.depth != depth_check
-    
-    else
-      []
-    end
-  end
+
 
   def value_finder
     entries = @all_entries
@@ -80,8 +68,8 @@ class BinarySearchTree
     end
   end
 
-  def sort
-    @all_entries.sort_by! do |entry|
+  def sort(inputs = @all_entries)
+    inputs.sort_by! do |entry|
       entry.values
     end
   end
@@ -96,14 +84,44 @@ class BinarySearchTree
       score, title = line.strip!.split(", ")
        self.insert(score.to_i, title)
       end
-      delete_depths(all_entries)
+      grab_hashes(all_entries)
   end
 
-  def delete_depths(entries_with_depths)
+  def grab_hashes(entries_with_depths)
     entries_with_depths.select do |movie|
       movie if movie.is_a?(Hash)
     end.length
   end
 
+  def health(depth, node = @root)
+    sorted = depth_sort(depth)
+    node_count = sort_for_depth(node).length
+    sorted.map do |node|
+      score    = node.score
+      children = sort_for_depth(node).length
+      percent  = percentage((node.children + 1), node_count)
+      [score, children, percent]
+    end
+  end
 
+  def percentage(children, total)
+    (children.to_f/ total * 100).floor
+  end
+
+  def sort_for_depth(node = @root)
+    return nil if node == nil
+    ordered = []
+    ordered << sort_for_depth(node.left)  unless node.left.nil?
+    ordered << node.hash_maker
+    ordered << sort_for_depth(node.right) unless node.right.nil?
+    ordered.flatten
+  end
+
+  def depth_sort(depth, node = @root)
+    at_depth = []
+    at_depth << node if node.depth == depth
+    at_depth << depth_sort(depth, node.left)  unless node.left.nil?
+    at_depth << depth_sort(depth, node.right) unless node.right.nil?
+    at_depth.flatten
+  end
 end
