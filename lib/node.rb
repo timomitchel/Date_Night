@@ -43,6 +43,10 @@ class Node
   def find_score(score_check)
     return self if score_check == @score
     return nil if score_check.is_a? String
+    result_checker(score_check)
+  end
+
+  def result_checker(score_check)
     result = path(score_check)
     if result.nil?
       return nil
