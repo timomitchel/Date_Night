@@ -124,7 +124,7 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 0, tree.percentage(0,7)
   end
 
-  def test_sort_for_depth_edge_cases
+  def test_sort_for_health_edge_cases
     tree.insert(98, "Animals United")
     tree.insert(58, "Armageddon")
     tree.insert(36, "Bill & Ted's Bogus Journey")
@@ -133,10 +133,10 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(38, "Charlie's Country")
     tree.insert(69, "Collateral Damage")
 
-    assert_nil nil, tree.sort_for_depth(nil)
+    assert_nil nil, tree.sort_for_health(nil)
   end
 
-  def test_sort_for_depth_returns_array_of_nodes_as_hashes_sorted_by_score
+  def test_sort_for_health_returns_array_of_nodes_as_hashes_sorted_by_score
     tree.insert(98, "Animals United")
     tree.insert(58, "Armageddon")
     tree.insert(36, "Bill & Ted's Bogus Journey")
@@ -145,9 +145,9 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(38, "Charlie's Country")
     tree.insert(69, "Collateral Damage")
 
-    assert_equal 7, tree.sort_for_depth(tree.root).length
-    assert_equal [36], tree.sort_for_depth(tree.root).first.values
-    assert_equal [98], tree.sort_for_depth(tree.root).last.values
+    assert_equal 7, tree.sort_for_health(tree.root).length
+    assert_equal [36], tree.sort_for_health(tree.root).first.values
+    assert_equal [98], tree.sort_for_health(tree.root).last.values
   end
 
   def test_depth_sort_returns_array_of_nodes

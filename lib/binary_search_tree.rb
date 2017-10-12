@@ -94,10 +94,10 @@ class BinarySearchTree
 
   def health(depth, node = @root)
     sorted = depth_sort(depth)
-    node_count = sort_for_depth(node).length
+    node_count = sort_for_health(node).length
     sorted.map do |node|
       score    = node.score
-      children = sort_for_depth(node).length
+      children = sort_for_health(node).length
       percent  = percentage((node.children + 1), node_count)
       [score, children, percent]
     end
@@ -107,20 +107,21 @@ class BinarySearchTree
     (children.to_f/ total * 100).floor
   end
 
-  def sort_for_depth(node = @root)
+  def sort_for_health(node = @root)
     return nil if node == nil
     ordered = []
-    ordered << sort_for_depth(node.left)  unless node.left.nil?
+    ordered << sort_for_health(node.left)  unless node.left.nil?
     ordered << node.hash_maker
-    ordered << sort_for_depth(node.right) unless node.right.nil?
+    ordered << sort_for_health(node.right) unless node.right.nil?
     ordered.flatten
   end
 
   def depth_sort(depth, node = @root)
-    at_depth = []
-    at_depth << node if node.depth == depth
-    at_depth << depth_sort(depth, node.left)  unless node.left.nil?
-    at_depth << depth_sort(depth, node.right) unless node.right.nil?
-    at_depth.flatten
+    sorted_depths = []
+    sorted_depths << node if node.depth == depth
+    sorted_depths << depth_sort(depth, node.left)  unless node.left.nil?
+    sorted_depths << depth_sort(depth, node.right) unless node.right.nil?
+    sorted_depths.flatten
   end
+
 end
