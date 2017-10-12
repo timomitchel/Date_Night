@@ -1,5 +1,4 @@
 require_relative "node"
-require "pry"
 class BinarySearchTree
 
   attr_reader :root, :depth, :all_entries
@@ -92,6 +91,15 @@ class BinarySearchTree
     end.length
   end
 
+  def sort_for_health(node = @root)
+    return nil if node == nil
+    ordered = []
+    ordered << sort_for_health(node.left)  unless node.left.nil?
+    ordered << node.hash_maker
+    ordered << sort_for_health(node.right) unless node.right.nil?
+    ordered.flatten
+  end
+
   def health(depth, node = @root)
     sorted = depth_sort(depth)
     node_count = sort_for_health(node).length
@@ -105,15 +113,6 @@ class BinarySearchTree
 
   def percentage(children, total)
     (children.to_f/ total * 100).floor
-  end
-
-  def sort_for_health(node = @root)
-    return nil if node == nil
-    ordered = []
-    ordered << sort_for_health(node.left)  unless node.left.nil?
-    ordered << node.hash_maker
-    ordered << sort_for_health(node.right) unless node.right.nil?
-    ordered.flatten
   end
 
   def depth_sort(depth, node = @root)
