@@ -2,8 +2,7 @@ require_relative "node"
 require "pry"
 class BinarySearchTree
 
-  attr_reader :root, :depth
-  attr_accessor :all_entries
+  attr_reader :root, :depth, :all_entries
 
   def initialize
     @root = nil

@@ -1,7 +1,6 @@
 class Node
 
-  attr_reader :score, :title, :children
-  attr_accessor :left, :right, :depth
+  attr_reader :score, :title, :children, :depth, :right, :left
 
   def initialize(score, title, depth = 0)
     @score = score
